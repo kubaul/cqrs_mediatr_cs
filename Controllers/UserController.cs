@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CQRSmediatr.Controllers;
 
-[Route("[controller]")]
+[Route("[controller]/[action]")]
 [ApiController]
 public class UserController(IMediator mediator) : Controller
 {
-    [HttpGet("[action]")]
+    [HttpGet("")]
     public async Task<ActionResult<List<User>>> GetAll()
     {
         var request = new GetAllUsersQuery();
@@ -19,7 +19,7 @@ public class UserController(IMediator mediator) : Controller
         return result;
     }
 
-    [HttpGet("[action]/{username}")]
+    [HttpGet("{username}")]
     public async Task<ActionResult<User?>> GetByUsername(string username)
     {
         var request = new GetUserByUsernameQuery(username);
@@ -28,7 +28,7 @@ public class UserController(IMediator mediator) : Controller
         return result;
     }
 
-    [HttpGet("[action]/{username}")]
+    [HttpGet("{username}")]
     public async Task<ActionResult<bool>> Delete(string username)
     {
         var request = new DeleteUserCommand(username);
